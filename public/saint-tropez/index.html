@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint-Tropez, sorted · Ahlert Apps</title>
+<meta name="description" content="Casa Saint-Tropez guide, sorted: beach clubs, restaurants, nights, must-dos. Every spot tappable to Google Maps.">
+<meta name="theme-color" content="#6E1E24">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burgundy:#6E1E24; --burgundy-dark:#4a1418; --cream:#F6F1E9; --paper:#FFFEFB;
+    --ink:#2b2320; --sub:#7a6266; --line:#e7ddce; --heart:#8a1f2b;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  .backlink{display:inline-block;font-size:13px;color:var(--sub);text-decoration:none;padding:14px 16px 0;}
+  header.hero{position:sticky;top:0;z-index:20;background:var(--burgundy);color:#fff;padding-bottom:2px;}
+  .ticker{overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:.08em;padding:6px 0;background:var(--burgundy-dark);opacity:.9;}
+  .ticker span{display:inline-block;padding-right:40px;animation:tick 26s linear infinite;}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;text-align:center;padding:14px 10px 6px;letter-spacing:.02em;}
+  .subtitle{text-align:center;font-size:12.5px;color:#eadfe0;padding-bottom:10px;}
+  nav.tabs{display:flex;overflow-x:auto;gap:4px;padding:0 10px 10px;scrollbar-width:none;}
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{flex:0 0 auto;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);
+    border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;transition:.15s;}
+  nav.tabs button.active{background:#fff;color:var(--burgundy);border-color:#fff;}
+  .filters{display:flex;gap:6px;overflow-x:auto;padding:10px 10px 12px;background:var(--paper);border-bottom:1px solid var(--line);scrollbar-width:none;}
+  .filters::-webkit-scrollbar{display:none;}
+  .filters button{flex:0 0 auto;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;color:var(--ink);}
+  .filters button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  main{max-width:640px;margin:0 auto;padding:14px 12px 60px;}
+  .section-label{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin:18px 4px 10px;color:var(--burgundy);}
+  .region{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--sub);margin:16px 4px 6px;}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;margin-bottom:10px;
+    display:block;position:relative;transition:.15s;}
+  .card:active{transform:scale(.99);}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+  .card h3{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin:0;color:var(--ink);}
+  .badges{display:flex;gap:5px;flex-shrink:0;}
+  .badge{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:3px 7px;border-radius:999px;white-space:nowrap;}
+  .badge.new{background:#2b6b4a;color:#fff;}
+  .badge.love{background:#fdecec;color:var(--heart);border:1px solid #f3c9cc;}
+  .card p{font-size:13.5px;line-height:1.5;color:#4d423e;margin:6px 0 8px;}
+  .card .meta{font-size:11.5px;color:var(--sub);display:flex;align-items:center;gap:4px;}
+  .card .maplink{font-size:11.5px;color:var(--burgundy);font-weight:600;}
+  .vibes{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+  .vibe-pill{font-size:10.5px;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--sub);}
+  .concierge{background:var(--burgundy);color:#fff;border-radius:16px;padding:20px 18px;margin-top:24px;}
+  .concierge h2{font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 8px;}
+  .concierge p{font-size:13px;line-height:1.55;color:#f1e3e4;margin:0 0 12px;}
+  .concierge a.btn{display:inline-block;background:#fff;color:var(--burgundy);font-weight:600;font-size:13px;
+    padding:9px 16px;border-radius:999px;margin:4px 6px 4px 0;}
+  .roadmap{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:6px;}
+  .roadmap .row{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--line);}
+  .roadmap .row:last-child{border-bottom:none;}
+  .roadmap .rd{color:var(--sub);font-weight:500;}
+  footer{text-align:center;font-size:11px;color:var(--sub);padding:20px 0 40px;}
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<a class="backlink" href="/">← ahlert.app</a>
+
+<header class="hero">
+  <div class="ticker"><span>WELCOME TO CASA SAINT-TROPEZ &nbsp;✦&nbsp; THE VERY BEST OF CASA SAINT-TROPEZ &nbsp;✦&nbsp; THE MUST-DO GUIDE BY CASA SAINT-TROPEZ &nbsp;✦&nbsp; WELCOME TO CASA SAINT-TROPEZ &nbsp;✦&nbsp; THE VERY BEST OF CASA SAINT-TROPEZ &nbsp;✦&nbsp; </span></div>
+  <div class="title">Saint-Tropez, sorted</div>
+  <div class="subtitle">Beach clubs · Restaurants · Nights · Must-dos — one tap to Maps</div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<div class="filters" id="filters"></div>
+
+<main id="main"></main>
+
+<footer>Built from La Conciergerie by Casa Saint-Tropez · hello@casasainttropez.com</footer>
+
+<script>
+const M = q => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q + ' Saint-Tropez France')}`;
+
+const DATA = {
+  beach: {
+    label: "Beach Clubs",
+    regions: {
+      "Pampelonne / Saint-Tropez": [
+        {n:"Club 55", d:"Iconic, feet-in-the-sand lunch blending laid-back luxury with live music and Mediterranean charm. Family-friendly.", v:["Iconic","Family","Foodie"], love:1},
+        {n:"Loulou", d:"Refined Mediterranean cuisine, panoramic sea views, festive spirit — where style meets summer.", v:["Iconic","Party"], love:1},
+        {n:"La Réserve à la Plage", d:"Designed by Philippe Starck. Refined Mediterranean cuisine, signature cocktails, stunning Riviera views. Family-friendly.", v:["Iconic","Family"]},
+        {n:"Byblos Beach", d:"Stylish and serene, refined Mediterranean cuisine and attentive service reflecting the timeless elegance of the Byblos hotel. Family-friendly.", v:["Chill","Family"]},
+        {n:"Playamigos", d:"Cozy bohemian hideaway — wood, cactus, ceramics. Ideal for a relaxed beachside lunch and a dip. Family-friendly.", v:["Chill","Family"]},
+        {n:"Casa Amor", d:"Exclusive beach concept fusing ethnic charm and boho-chic ambiance, feet in the sand, DJ sets — made for celebration.", v:["Party"]},
+        {n:"Shellona Ramatuelle", d:"Greek cuisine with exceptional DJ sets, possibly the best on the Riviera — perfect for dancing with your feet in the sand.", v:["Party"]},
+        {n:"Indie Beach", d:"Chic and laid-back, blends Californian elegance with shareable plates, fresh cocktails, and a James Perse pop-up. Festive Tue/Thu(House)/Sat.", v:["Chill","Party"]},
+      ],
+      "Ramatuelle": [
+        {n:"Jardin Tropezina", d:"Elegant oasis on Pampelonne Beach — refined Mediterranean cuisine between warm sand and sea breeze.", v:["Iconic"], love:1},
+        {n:"Gigi", d:"Refined beach house under the pines — Italian elegance meets Riviera spirit. Bellini cocktails, live music, DJ sets.", v:["Party","Foodie"], love:1},
+        {n:"La Sauvageonne", d:"Bohemian escape hidden in bamboo and driftwood — generous cuisine, live music, festive atmosphere under a starlit sky.", v:["Party","Chill"]},
+        {n:"Chez Camille", d:"A Saint-Tropez institution since 1953 by the water — traditional cuisine, fresh seafood, wood-fired bouillabaisse.", v:["Family","Foodie"]},
+        {n:"Kinugawa", d:"Lush garden setting blending Japanese elegance with Mediterranean flair — exceptional sushi, creative cocktails, nightly DJ sets.", v:["Party","Foodie"], love:1},
+        {n:"Café de l'Ormeau", d:"Iconic institution embodying Provençal art de vivre since the 1940s — warm, authentic, in the heart of the village.", v:["Chill"]},
+      ]
+    }
+  },
+  restaurants: {
+    label: "Restaurants",
+    regions: {
+      "Saint-Tropez": [
+        {n:"Les Graniers", d:"Tucked in a hidden cove, a true insider's spot serving authentic Mediterranean cuisine with feet in the sand. Pure Tropezian spirit.", v:["Iconic","Chill"], love:1},
+        {n:"Cherry", d:"Tucked at the end of the port — refined Italian cuisine, jazzy vibes, stunning sea views for stylish evenings.", v:["Iconic"]},
+        {n:"NAO", d:"On the iconic Place des Lices — blends Japanese elegance with Mediterranean flavors in a chic, vibrant atmosphere.", v:["Foodie"]},
+        {n:"La Petite Plage", d:"By the port — refined Mediterranean cuisine, yacht views, cocktail bar, festive evenings.", v:["Chill","Party"]},
+        {n:"Le TIGrr", d:"Perched atop the town — refined Asian cuisine in a festive, elegant atmosphere. Terrace views, creative cocktails, DJ sets.", v:["Iconic","Party"]},
+        {n:"Casa Rocco", d:"Authentic Neapolitan cuisine at the foot of the citadel — warm atmosphere full of joy and good vibes.", v:["Foodie"], nw:1},
+        {n:"Salama", d:"Unmissable Moroccan and Mediterranean cuisine in a warm, festive atmosphere, heart of Saint-Tropez.", v:["Foodie","Party"]},
+        {n:"Zuma", d:"At the Hôtel Byblos — refined and vibrant Japanese cuisine.", v:["Iconic","Foodie"], nw:1},
+        {n:"Le Café", d:"An institution since 1789 — classic French cuisine in a festive, warm atmosphere on Place des Lices.", v:["Iconic"], love:1},
+        {n:"Ban-Hoï", d:"Small alley in the heart of the village — refined fusion of Vietnamese, Thai, and Japanese cuisines. Elegant and intimate.", v:["Foodie"], love:1},
+      ]
+    }
+  },
+  breakfast: {
+    label: "Breakfast & Bakeries",
+    regions: {
+      "Saint-Tropez": [
+        {n:"Sénéquier", d:"Iconic institution since 1887 — breakfast on the harbor with fresh pastries, juices, and coffee overlooking yachts.", v:["Iconic"]},
+        {n:"Dior des Lices", d:"Chic breakfast in Dior's elegant garden — refined pastries and healthy options.", v:["Iconic"], love:1},
+        {n:"Table de la Messardière", d:"Luxurious breakfast crafted by pastry chef Cédric Grolet, panoramic views of the bay, in the Château de la Messardière.", v:["Iconic"], love:1},
+        {n:"Mamé", d:"Californian brunch classics — eggs benedict, avocado toast, pancakes — modern and friendly, heart of the village.", v:["Chill"]},
+        {n:"La Pâtisserie Lignac", d:"Cyril Lignac's bakery — buttery viennoiseries and elegant desserts. Takeaway only.", v:["Foodie"], love:1},
+        {n:"Cédric Grolet", d:"The world-renowned pastry chef's signature creations in the vibrant center of town. Takeaway only.", v:["Foodie"]},
+      ],
+      "Ramatuelle": [
+        {n:"Cabane Bambou", d:"Beachfront breakfast with your toes in the sand, chic and relaxed. June through late August only.", v:["Chill"], love:1},
+        {n:"Les Moulins de Ramatuelle", d:"Gourmet Sunday brunch featuring a buffet of fresh local produce.", v:["Foodie"]},
+      ]
+    }
+  },
+  nights: {
+    label: "Drinks & Nightclubs",
+    regions: {
+      "Saint-Tropez": [
+        {n:"Les Caves du Roy", d:"Since 1967, inside the legendary Hôtel Byblos — has defined Saint-Tropez nightlife. Celebrities and party lovers dance until dawn.", v:["Party","Iconic"]},
+        {n:"L'Ephémère", d:"Among the vineyards of Domaine Fondugues-Pradugues — cozy wine bar for natural wines and refined tapas under the pines.", v:["Chill"], love:1},
+        {n:"Skybar at Hotel Byblos", d:"Breathtaking views of the bay, exclusive grand crus and vintage spirits.", v:["Iconic"], nw:1},
+        {n:"Sanctum", d:"Inside the Stefano Forever complex at Pampelonne — exceptional DJ sets, the wildest parties.", v:["Party"], love:1},
+        {n:"Pablo", d:"Right on Place des Lices — the must-do for Tropezian befores, creative cocktails, electric atmosphere, excellent DJ sets.", v:["Party"], love:1},
+      ]
+    }
+  },
+  spa: {
+    label: "Wellness & Spa",
+    regions: {
+      "Saint-Tropez": [
+        {n:"Spa at Cheval Blanc", d:"Signed by Guerlain — exclusive personalized treatments in a calming, elegant environment.", v:["Chill"]},
+        {n:"Spa at Byblos", d:"Operated by Sisley — premium beauty and wellness treatments.", v:["Chill"]},
+        {n:"Spa at Château de la Messardière", d:"By Valmont — exceptional treatments blending innovation and luxury.", v:["Chill"]},
+        {n:"Spa at La Réserve", d:"In partnership with Nescens — premium treatments combining science and wellness, intimate and serene.", v:["Chill"]},
+        {n:"L'Aparté", d:"Hairdressing, hair treatments, manicures, eye beauty — Davines and Olaplex specialists.", v:["Chill"]},
+        {n:"Traditional Barber", d:"Premium hairdressing and barbering — trendy cuts to traditional shaves, American Crew and Revlon.", v:["Chill"]},
+        {n:"Outdoor Yoga at La Ponche", d:"Rejuvenating morning yoga overlooking the peaceful waters of the bay.", v:["Chill"], love:1},
+      ]
+    }
+  },
+  mustdo: {
+    label: "Must Do",
+    regions: {
+      "Saint-Tropez": [
+        {n:"Provençal Market", d:"Every Tuesday and Saturday morning, Place des Lices — fresh produce, textiles, flowers, local crafts.", v:["Iconic"]},
+        {n:"Place aux Herbes", d:"Open daily — local food artisans, fresh fruit and veg, butchers, cheesemongers, and Chez Madeleine.", v:["Foodie"]},
+        {n:"The Ponche Quarter", d:"Historic, narrow alleys and stone houses — a journey through time with stunning sea views.", v:["Chill"]},
+        {n:"Tarte Tropézienne", d:"Taste the famous dessert of brioche and custard — created right here in Saint-Tropez.", v:["Foodie"]},
+        {n:"Les Graniers, Canoubiers & La Moutte Beaches", d:"Quieter beaches for a more peaceful retreat, typically Tropézienne atmosphere.", v:["Chill"]},
+        {n:"Stroll the Old Port", d:"Leisurely walk admiring luxury yachts — enjoy a glass of rosé at a sun-drenched café.", v:["Chill","Iconic"]},
+        {n:"Shopping in Saint-Tropez", d:"Rue de Sibili, rue Gambetta, rue Allard — Chanel, Louis Vuitton, Dior, Celine, Hermès and more.", v:["Iconic"]},
+        {n:"The Citadel of Saint-Tropez", d:"Perched on a hill — breathtaking views of the village and bay. Peaceful, historical, tranquil.", v:["Iconic","Chill"]},
+        {n:"Pastis at Place des Lices", d:"Soak in the local vibe while playing pétanque, a true Tropézienne tradition.", v:["Chill"]},
+        {n:"The Coastal Trail", d:"Scenic hike with breathtaking views of the sea and wild coastline.", v:["Chill"]},
+      ],
+      "Ramatuelle": [
+        {n:"Hilltop Village of Ramatuelle", d:"Cobbled streets, stone houses, charming squares — a step back in time with spectacular views over the Bay of Pampelonne.", v:["Iconic","Chill"]},
+        {n:"Hike to Cap Taillat", d:"A memorable walk through untouched nature — spectacular views, crystal-clear waters, refreshing swim break.", v:["Chill"]},
+        {n:"Sunset at Cap Camarat", d:"Breathtaking panoramic view over the Mediterranean.", v:["Iconic"]},
+        {n:"Château Minuty", d:"On the road to Ramatuelle — sip a glass of rosé at one of the region's most iconic estates.", v:["Foodie"]},
+        {n:"La Forge Restaurant", d:"Authentic Italian escape in the heart of the village — relaxed meal, warm atmosphere.", v:["Foodie"]},
+      ]
+    }
+  },
+};
+
+const FILTERS = ["All","Iconic","Party","Chill","Family","Foodie"];
+let activeTab = "beach";
+let activeFilter = "All";
+
+function renderTabs(){
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = Object.keys(DATA).map(k =>
+    `<button data-tab="${k}" class="${k===activeTab?'active':''}">${DATA[k].label}</button>`
+  ).join('') + `<button data-tab="concierge" class="${activeTab==='concierge'?'active':''}">Concierge</button>`;
+  tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeTab=b.dataset.tab;render();});
+}
+
+function renderFilters(){
+  const f = document.getElementById('filters');
+  if(activeTab==='concierge'){ f.classList.add('hidden'); return; }
+  f.classList.remove('hidden');
+  f.innerHTML = FILTERS.map(v => `<button data-f="${v}" class="${v===activeFilter?'active':''}">${v}</button>`).join('');
+  f.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeFilter=b.dataset.f;render();});
+}
+
+function card(item){
+  const badges = (item.love?`<span class="badge love">♥ We love it</span>`:'') + (item.nw?`<span class="badge new">New</span>`:'');
+  const vibes = item.v.map(v=>`<span class="vibe-pill">${v}</span>`).join('');
+  return `<a class="card" href="${M(item.n)}" target="_blank" rel="noopener">
+    <div class="card-head"><h3>${item.n}</h3><div class="badges">${badges}</div></div>
+    <p>${item.d}</p>
+    <div class="meta"><span class="maplink">Open in Maps →</span></div>
+    <div class="vibes">${vibes}</div>
+  </a>`;
+}
+
+function render(){
+  renderTabs(); renderFilters();
+  const main = document.getElementById('main');
+  if(activeTab==='concierge'){
+    main.innerHTML = `
+      <div class="concierge">
+        <h2>La Conciergerie</h2>
+        <p>More than a service — a way of life. Home services, the best tables in the village, exclusive beach club and nightclub access, wine tours, chauffeurs, car rentals, boats, and helicopter transfers. We handle it all, 7/7, for any emergencies.</p>
+        <a class="btn" href="tel:+33614333032">📞 Conciergerie · +33 614 33 30 32</a>
+        <a class="btn" href="tel:+33489998510">🏠 Office · +33 489 998 510</a>
+        <a class="btn" href="mailto:hello@casasainttropez.com">✉️ hello@casasainttropez.com</a>
+      </div>
+      <div class="section-label">Pampelonne, north to south</div>
+      <div class="roadmap">
+        <div class="row"><span class="rd">Route du Pinet</span><span>Jardin Tropezina · Bar du Soleil · Tahiti Beach</span></div>
+        <div class="row"><span class="rd">Route des Moulins / Tamaris</span><span>Loulou · Casa Amor · Les Palmiers · L'Orangerie</span></div>
+        <div class="row"><span class="rd">—</span><span>Shellona · Playamigos · Bagatelle</span></div>
+        <div class="row"><span class="rd">Boulevard Patch</span><span>Club 55 · La Serena · Byblos Beach</span></div>
+        <div class="row"><span class="rd">—</span><span>Gigi · Nikki Beach</span></div>
+        <div class="row"><span class="rd">Route de l'Épi</span><span>La Réserve à la Plage · Verde</span></div>
+        <div class="row"><span class="rd">Route de Bonne Terrasse</span><span>Cabane Bambou · Indie Beach Club · Chez Camille</span></div>
+        <div class="row"><span class="rd">→ Ramatuelle</span><span>La Sauvageonne</span></div>
+      </div>`;
+    return;
+  }
+  const t = DATA[activeTab];
+  let html = '';
+  for(const region in t.regions){
+    const items = t.regions[region].filter(i => activeFilter==='All' || i.v.includes(activeFilter));
+    if(!items.length) continue;
+    html += `<div class="region">${region}</div>` + items.map(card).join('');
+  }
+  if(!html) html = `<p style="text-align:center;color:var(--sub);padding:30px 0;">Nothing tagged "${activeFilter}" here — try another vibe.</p>`;
+  main.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
